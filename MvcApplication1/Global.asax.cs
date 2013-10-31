@@ -29,13 +29,14 @@ namespace MvcApplication1
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             log.Info("begin");
-            CallContext.LogicalSetData("data", "what was the path? " + Request.Url.PathAndQuery);
+            HttpContext.Current.Items["data"] = "what was the path? " + Request.Url.PathAndQuery;
+            CallContext.LogicalSetData("data", HttpContext.Current.Items["data"]);
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)
         {
             log.Info("end");
-            log.Info(CallContext.LogicalGetData("data") ?? "EMPTY CALL CONTEXT");
+            log.Info(HttpContext.Current.Items["data"] ?? "EMPTY CALL CONTEXT");
         }
     }
 }
