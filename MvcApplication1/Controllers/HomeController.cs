@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,6 +13,8 @@ namespace MvcApplication1.Controllers
 {
     public class HomeController : AsyncController
     {
+        static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public ActionResult Index()
         {
             var html = new StringBuilder()
@@ -34,7 +37,9 @@ namespace MvcApplication1.Controllers
 
         public async Task<ActionResult> Long2Async()
         {
+            log.Info("Inside Long2Async, before await HitLong: " + CallContext.LogicalGetData("data"));
             var resp = await HitLong();
+            log.Info("Inside Long2Async, after await HitLong: " + CallContext.LogicalGetData("data"));
             return Content("AsyncLong: " + resp);
         }
 
