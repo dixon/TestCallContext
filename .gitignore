@@ -1,0 +1,16 @@
+_ReSharper*
+bin
+obj
+*.suo
+*.sqlite
+*.user
+*.sdf
+*.nupkg
+nuget.exe
+*.*~
+*.swp
+.DS_Store
+tmp
+*~
+.DotSettings
+*StyleCop*
